@@ -1,0 +1,19 @@
+function main(workbook: ExcelScript.Workbook) {
+  // Get the active worksheet.
+  let selectedSheet = workbook.getActiveWorksheet();
+
+  // Get the currently selected range.
+  let selectedRange = workbook.getSelectedRange();
+
+  // Get values from the selected range
+  let rangeValues = selectedRange.getValues();
+
+  // Iterate through all rows and columns in the selected range
+  for (let i = 0; i < rangeValues.length; i++) {
+    for (let j = 0; j < rangeValues[i].length; j++) {
+      let currentValue = rangeValues[i][j].toString();
+      let numericValue = currentValue.replace(/[^0-9.]/g, ""); // Remove non-numeric characters
+      selectedRange.getCell(i, j).setValue(numericValue); // Set the cleaned value back to the cell
+    }
+  }
+}
